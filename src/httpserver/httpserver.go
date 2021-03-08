@@ -1,6 +1,7 @@
 package httpserver
 
 import (
+	_ "board4486/service/config"
 	"github.com/gin-gonic/gin"
 	"log"
 )
@@ -16,8 +17,8 @@ func CreatServer() *Server {
 	return &server
 }
 
-func (server *Server) Run() {
-	err := server.engine.Run()
+func (server *Server) Run(listenAddress string) {
+	err := server.engine.Run(listenAddress)
 	if err != nil {
 		log.Fatal(err)
 	}

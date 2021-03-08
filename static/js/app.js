@@ -13,18 +13,30 @@
         bindRemoveBtn();
         refreshUIElementStatus();
         bindLoginForm();
+        bindLogoutBtn();
+        bindShowAdminLoginBtn();
     };
 
     let refreshUIElementStatus = function () {
+
+        $('#admin-login-btn-area').show();
+        $('#admin-login-form-area').hide();
+
         if (current_token) {
-            $('[data-auth-required="logging"]').show();
-            $('[data-auth-required="unlogining"]').hide();
+            $('[data-auth-required="admin"]').show();
+            $('[data-auth-required="anonymous"]').hide();
         } else {
-            $('[data-auth-required="logging"]').hide();
-            $('[data-auth-required="unlogining"]').show();
+            $('[data-auth-required="admin"]').hide();
+            $('[data-auth-required="anonymous"]').show();
         }
     };
 
+    let bindShowAdminLoginBtn = function () {
+        $("#show-admin-login-btn").unbind().bind('click', function () {
+            $('#admin-login-btn-area').hide();
+            $('#admin-login-form-area').show();
+        });
+    };
 
     /**
      * 刷新留言列表
@@ -48,6 +60,15 @@
         });
     };
 
+    let bindLogoutBtn = function () {
+        $("#logout-submit").unbind().bind('click', function () {
+            request('/auth/logout', {}, function () {
+                current_token = '';
+                refreshUIElementStatus();
+            });
+        });
+    }
+
     /**
      * 绑定留言表单
      */
@@ -68,17 +89,15 @@
 
     let bindLoginForm = function () {
         $('#login-submit').unbind().bind('click', function () {
-            if (confirm('确定要提交留言吗？')) {
-                let payload = {
-                    username: $("#login-username").val(),
-                    password: $("#login-password").val(),
-                };
-                request('/auth/login', payload, function (data) {
-                    current_token = data['token'];
-                    refreshUIElementStatus();
-                    refreshMessageList();
-                })
-            }
+            let payload = {
+                username: $("#login-username").val(),
+                password: $("#login-password").val(),
+            };
+            request('/auth/login', payload, function (data) {
+                current_token = data['token'];
+                refreshUIElementStatus();
+                refreshMessageList();
+            })
         });
     };
 

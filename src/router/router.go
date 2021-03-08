@@ -3,15 +3,12 @@ package router
 import (
 	"board4486/controller/api/auth"
 	"board4486/controller/api/message"
-	"board4486/httpmiddleware/apiProtocol"
 	"board4486/httpserver/protocol/apiv1"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
 func Binder(engine *gin.Engine) {
-
-	engine.Use(apiProtocol.MiddlewareHandler)
 
 	// 绑定首页
 	engine.GET("/", func(c *gin.Context) {

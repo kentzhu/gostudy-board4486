@@ -1,0 +1,5 @@
+mysql:
+  data_source: "username:password@tcp(127.0.0.1:3306)/database"
+
+http:
+  listen_address: "0.0.0.0:8899"
