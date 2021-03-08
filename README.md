@@ -41,3 +41,15 @@
 ![](doc/image/img.png)
 ![](doc/image/img_1.png)
 ![](doc/image/img_2.png)
+
+## 压力测试
+
+服务器环境：
+
+- CentOS 7.6 64位
+- Intel(R) Xeon(R) Platinum 8163 CPU @ 2.50GHz
+- 1核 1 GiB
+- 阿里云 ecs.t5-lc1m1.small
+- Nginx+Golang+本地MySQL
+
+![](doc/image/img_3.png)
